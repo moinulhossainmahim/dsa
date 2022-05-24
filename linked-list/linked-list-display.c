@@ -141,20 +141,37 @@ struct Node* rSearch(struct Node *p, int key)
     return rSearch(p->next, key);
 }
 
-int main() {
-    struct Node *temp;
-    int A[] = {3, 5, 7, 10, 15, 6, 9, 32};
-    create(A, 8);
-    temp=linearSearch(first, 6);
-    temp=linearSearch(first, 32);
-    if(temp)
-        printf("Key is found %d\n", temp->data);
+void Insert(struct Node *p, int index, int x)
+{
+    struct Node *t;
+    int i;
+    if(index < 0 || index>count(p))
+        return;
+    t=(struct Node *)malloc(sizeof(struct Node));
+    t->data=x;
+
+    if(index==0)
+    {
+        t->next=first;
+        first=t;
+    }
     else
-        printf("Key is not found\n");
+    {
+        for(i=0; i<index-1&&p; i++)
+        {
+            p=p->next;
+        }
+        t->next=p->next;
+        p->next=t;
+    }
+}
+
+int main() {
+    int A[] = {3, 5, 7};
+    Insert(first, 0, 10);
+    Insert(first, 1, 20);
+    Insert(first, 2, 30);
+    Insert(first, 0, 5);
     Display(first);
     return 0;
 }
-
-
-
-
