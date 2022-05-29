@@ -23,7 +23,6 @@ void create(int A[], int n)
         last->next=t;
         last=t;
     }
-
 }
 
 void Display(struct Node *p)
@@ -166,12 +165,72 @@ void Insert(struct Node *p, int index, int x)
     }
 }
 
+void sortedInsert(struct Node *p, int x)
+{
+    struct Node *t,*q=NULL;
+    t=(struct Node *)malloc(sizeof(struct Node));
+    t->data=x;
+    t->next=NULL;
+    if(first==NULL)
+    {
+        first=t;
+    }
+    else
+    {
+        while(p && p->data<x)
+        {
+            q=p;
+            p=p->next;
+        }
+        if(p==first)
+        {
+            t->next=first;
+            first=t;
+        }
+        else
+        {
+            t->next=q->next;
+            q->next=t;
+        }
+    }
+
+}
+
+int deleteNode(struct Node *p, int index)
+{
+    struct Node *q=NULL;
+    int x=-1, i;
+    if(index < 1 || index > count(p))
+    {
+        return -1;
+    }
+    if(index==1)
+    {
+        q=first;
+        x=first->data;
+        first=first->next;
+        free(q);
+        return x;
+    }
+    else
+    {
+        for(i=0; i<index-1; i++)
+        {
+            q=p;
+            p=p->next;
+        }
+        q->next=p->next;
+        x=p->data;
+        free(p);
+        return x;
+    }
+}
+
+
 int main() {
-    int A[] = {3, 5, 7};
-    Insert(first, 0, 10);
-    Insert(first, 1, 20);
-    Insert(first, 2, 30);
-    Insert(first, 0, 5);
+    int A[] = {3, 5, 7, 9};
+    create(A, 4);
+    printf("Deleted node's value is %d\n", deleteNode(first, 0));
     Display(first);
     return 0;
 }
