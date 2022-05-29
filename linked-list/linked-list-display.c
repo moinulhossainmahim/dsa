@@ -226,11 +226,25 @@ int deleteNode(struct Node *p, int index)
     }
 }
 
+int isSorted(struct Node *p)
+{
+    int x=-32767;
+    while(p!=NULL)
+    {
+        if(p->data<x)
+            return 0;
+        x=p->data;
+        p=p->next;
+    }
+    return 1;
+}
 
 int main() {
     int A[] = {3, 5, 7, 9};
     create(A, 4);
-    printf("Deleted node's value is %d\n", deleteNode(first, 0));
-    Display(first);
+    int result = isSorted(first);
+    if(result) printf("Sorted");
+    else printf("Not sorted");
+    //Display(first);
     return 0;
 }
