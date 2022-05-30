@@ -258,10 +258,58 @@ void removeDuplicates(struct Node *p)
     }
 }
 
+void reverseByArray(struct Node *p)
+{
+    int *A;
+    struct Node *q=p;
+
+    A=(int *)malloc(sizeof(int) * count(p));
+    int i=0;
+    while(q!=NULL)
+    {
+        A[i]=q->data;
+        q=q->next;
+        i++;
+    }
+    q=p;
+    i--;
+    while(q!=NULL)
+    {
+        q->data=A[i];
+        q=q->next;
+        i--;
+    }
+}
+
+void reverseLinks(struct Node *p)
+{
+    struct Node *q=NULL,*r=NULL;
+
+    while(p!=NULL)
+    {
+        r=q;
+        q=p;
+        p=p->next;
+        q->next=r;
+    }
+    first=q;
+}
+
+void recursiveReverse(struct Node *q, struct Node *p)
+{
+    if(p!=NULL)
+    {
+        recursiveReverse(p, p->next);
+        p->next=q;
+    }
+    else
+        first=q;
+}
+
 int main() {
-    int A[] = {3, 3, 3};
-    create(A, 3);
-    removeDuplicates(first);
+    int A[] = {50, 40, 30, 10, 20};
+    create(A, 5);
+    reverseByArray(first);
     Display(first);
     return 0;
 }
