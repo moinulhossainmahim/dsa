@@ -5,7 +5,7 @@ struct Node
 {
     int data;
     struct Node *next;
-}*first=NULL;
+}*first=NULL,*second=NULL,*third=NULL;
 
 void create(int A[], int n)
 {
@@ -15,6 +15,24 @@ void create(int A[], int n)
     first->data=A[0];
     first->next=NULL;
     last=first;
+    for(i=1; i<n; i++)
+    {
+        t=(struct Node *)malloc(sizeof(struct Node));
+        t->data=A[i];
+        t->next=NULL;
+        last->next=t;
+        last=t;
+    }
+}
+
+void createSecond(int A[], int n)
+{
+    int i;
+    struct Node *t,*last;
+    second=(struct Node *)malloc(sizeof(struct Node));
+    second->data=A[0];
+    second->next=NULL;
+    last=second;
     for(i=1; i<n; i++)
     {
         t=(struct Node *)malloc(sizeof(struct Node));
@@ -306,10 +324,22 @@ void recursiveReverse(struct Node *q, struct Node *p)
         first=q;
 }
 
+void Concat(struct Node *p, struct Node *q)
+{
+    third=p;
+    while(p->next != NULL)
+    {
+        p=p->next;
+    }
+    p->next=q;
+}
+
 int main() {
     int A[] = {50, 40, 30, 10, 20};
+    int B[] = {1, 2, 3, 4, 5};
     create(A, 5);
-    reverseByArray(first);
-    Display(first);
+    createSecond(B, 5);
+    Concat(second,first);
+    Display(third);
     return 0;
 }
