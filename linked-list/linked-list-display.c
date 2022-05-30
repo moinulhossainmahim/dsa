@@ -239,12 +239,29 @@ int isSorted(struct Node *p)
     return 1;
 }
 
+void removeDuplicates(struct Node *p)
+{
+    struct Node *q=p->next;
+    while(q!=NULL)
+    {
+        if(p->data!=q->data)
+        {
+            p=q;
+            q=q->next;
+        }
+        else
+        {
+            p->next=q->next;
+            free(q);
+            q=p->next;
+        }
+    }
+}
+
 int main() {
-    int A[] = {3, 5, 7, 9};
-    create(A, 4);
-    int result = isSorted(first);
-    if(result) printf("Sorted");
-    else printf("Not sorted");
-    //Display(first);
+    int A[] = {3, 3, 3};
+    create(A, 3);
+    removeDuplicates(first);
+    Display(first);
     return 0;
 }
