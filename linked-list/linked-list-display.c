@@ -334,12 +334,64 @@ void Concat(struct Node *p, struct Node *q)
     p->next=q;
 }
 
+void mergeTwoLinkedList(struct Node *p, struct Node *q)
+{
+    struct Node *last=NULL;
+    if(p->data<q->data)
+    {
+        third=last=p;
+        p=p->next;
+        third->next=NULL;
+    }
+    else
+    {
+        third=last=q;
+        q=q->next;
+        third->next=NULL;
+    }
+    while(p && q)
+    {
+        if(p->data<q->data)
+        {
+            last->next=p;
+            last=p;
+            p=p->next;
+            last->next=NULL;
+        }
+        else
+        {
+            last->next=q;
+            last=q;
+            q=q->next;
+            last->next=NULL;
+        }
+    }
+    if(p) last->next=p;
+    if(q) last->next=q;
+}
+
+int isLoop(struct Node *f)
+{
+    struct Node *p,*q;
+    p=q=f;
+    do
+    {
+        p=p->next;
+        q=q->next;
+        q=q?q->next:q;
+    }while(p && q && p!=q);
+
+    if(p==q) return 1;
+    else return 0;
+}
+
 int main() {
-    int A[] = {50, 40, 30, 10, 20};
-    int B[] = {1, 2, 3, 4, 5};
+    struct Node *t1, *t2;
+    int A[] = {10, 20, 30, 40, 50};
     create(A, 5);
-    createSecond(B, 5);
-    Concat(second,first);
-    Display(third);
+    t1=first->next->next;
+    t2=first->next->next->next->next;
+    t2->next=t1;
+    printf("%d\n", isLoop(first));
     return 0;
 }
