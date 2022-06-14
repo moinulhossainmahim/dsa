@@ -57,13 +57,8 @@ void display() {
 }
 
 int main() {
-    enqueue(10);
-    enqueue(20);
-    enqueue(30);
-    enqueue(40);
     display();
     printf("%d\n", dequeue());
-    enqueue(60);
     display();
     return 0;
 }

@@ -56,4 +56,3 @@ int main() {
     display(q);
     return 0;
 }
-

@@ -69,7 +69,7 @@ void insertMid(int index) {
     int i;
     if(start==NULL) start=newNode;
     else {
-        for(i=0; i<index-1; i++) {
+        for(i=1; i<index-1; i++) {
             temp=temp->next;
         }
         newNode->next=temp->next;
@@ -78,7 +78,7 @@ void insertMid(int index) {
 }
 
 int main() {
-    createNodes(3);
+    createNodes(4);
     Display();
     insertMid(3);
     Display();
