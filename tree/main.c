@@ -101,8 +101,27 @@ void IInorder(struct TreeNode *p) {
   }
 }
 
+// Level order traversing
+void leverOrderTraversing(struct TreeNode *root) {
+  struct Queue q;
+  create(&q, 100);
+  printf("%d ", root->data);
+  enqueue(&q, root);
+  while(!isEmpty(q)) {
+    root=dequeue(&q);
+    if(root->lChild!=NULL) {
+      printf("%d ", root->lChild->data);
+      enqueue(&q, root->lChild);
+    }
+    if(root->rChild!=NULL) {
+      printf("%d ", root->rChild->data);
+      enqueue(&q, root->rChild);
+    }
+  }
+}
+
 int main() {
   createTree();
-  IInorder(root);
+  leverOrderTraversing(root);
   return 0;
 }
