@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include "Queue.h"
+#include "Stack.h"
 
 struct TreeNode *root=NULL;
 
@@ -42,6 +43,7 @@ void createTree() {
   }
 }
 
+//Recursive pre/in/post order
 void preorder(struct TreeNode *p) {
   if(p) {
     printf("%d ", p->data);
@@ -66,11 +68,41 @@ void postorder(struct TreeNode *p) {
   }
 }
 
-int main() {
-  createTree();
-  preorder(root);
-  printf("\n");
-  postorder(root);
-  return 0;
+// Iterative pre/in/post order
+void IpreOrder(struct TreeNode *p) {
+  struct Stack st;
+  createStack(&st, 100);
+  while(p || !isEmptyStack(st)) {
+    if(p!=NULL) {
+      printf("%d ", p->data);
+      push(&st, p);
+      p=p->lChild;
+    }
+    else {
+      p=pop(&st);
+      p=p->rChild;
+    }
+  }
 }
 
+void IInorder(struct TreeNode *p) {
+  struct Stack st;
+  createStack(&st, 100);
+  while(p || !isEmptyStack(st)) {
+    if(p!=NULL) {
+      push(&st, p);
+      p=p->lChild;
+    }
+    else {
+      p=pop(&st);
+      printf("%d ", p->data);
+      p=p->rChild;
+    }
+  }
+}
+
+int main() {
+  createTree();
+  IInorder(root);
+  return 0;
+}
