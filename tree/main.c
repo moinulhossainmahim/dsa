@@ -151,8 +151,27 @@ int countLeaf(struct TreeNode *p) {
   return count(p->lChild)+count(p->rChild);
 }
 
+// count Nodes degree 2
+int countDegtwo(struct TreeNode *p) {
+  if(p==NULL)return 0;
+  if(p->lChild && p->rChild)
+    return countDegtwo(p->lChild)+countDegtwo(p->rChild)+1;
+}
+
+int countDegoneOrTwo(struct TreeNode *p) {
+  if(p==NULL)return 0;
+  if(p->lChild || p->rChild)
+    return countDegoneOrTwo(p->lChild)+countDegoneOrTwo(p->rChild)+1;
+}
+
+int countDegOne(struct TreeNode *p) {
+  if(p==NULL)return 0;
+  if((p->lChild!=NULL) ^ (p->rChild!=NULL))
+    return countDegOne(p->lChild)+countDegOne(p->rChild)+1;
+}
+
 int main() {
   createTree();
-  printf("Count Leaf: %d", countLeaf(root));
+  printf("Count Degree one nodes: %d", countDegOne(root));
   return 0;
 }
