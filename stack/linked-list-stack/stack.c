@@ -85,7 +85,7 @@ int isBalanceTwo(char *exp) {
     if(top==NULL) return 1;
     else return 0;
 }
-
+/* 
 int pre(char x) {
     if(x=='+' || x=='-') {
         return 1;
@@ -100,7 +100,7 @@ int isOperand(char x) {
     } else {
         return 1;
     }
-}
+} */
 
 char * infixToPostfix(char *infix) {
     char *postfix;
@@ -130,6 +130,5 @@ int main()
 {
     char *infix="a+b*c";
     char *postfix;
-
     return 0;
 }
