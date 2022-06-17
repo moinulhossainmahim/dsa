@@ -133,13 +133,11 @@ int count(struct TreeNode *p) {
 
 int height(struct TreeNode *p) {
   int x=0,y=0;
-  if(p==0)return 0;
-  if(p!=NULL) {
-    x=height(p->lChild);
-    y=height(p->rChild);
-    if(x>y)return x+1;
-    else return y+1;
-  }
+  if(p==NULL)return 0;
+  x=height(p->lChild);
+  y=height(p->rChild);
+  if(x>y)return x+1;
+  else return y+1;
   return 0;
 }
 

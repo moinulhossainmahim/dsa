@@ -53,13 +53,67 @@ node * recursiveInsert(node *t, int key) {
   }
   return t;
 }
-
+ 
 void inorder(node *p) {
   if(p) {
     inorder(p->lchild);
     printf("%d ", p->data);
     inorder(p->rchild);
   }
+}
+
+int height(node *p) {
+  int x,y;
+  if(p==NULL)return 0;
+  x=height(p->lchild);
+  y=height(p->rchild);
+  return x>y?x+1:y+1;
+}
+
+node * inorderPredecessor(node *p) {
+  while(p && p->rchild!=NULL) {
+    p=p->rchild;
+  }
+  return p;
+}
+
+node * inorderSuccessor(node *p) {
+  while(p && p->lchild!=NULL) {
+    p=p->lchild;
+  }
+  return p;
+}
+
+node * delete(node *p, int key) {
+  node *q;
+  if(p==NULL) {
+    return NULL;
+  }
+  if(!p->lchild && !p->rchild) {
+    if(p==root)
+      root=NULL;
+    free(p);
+    return NULL;
+  }
+  if(key<p->data) {
+    p->lchild=delete(p->lchild, key);
+  }
+  else if(key>p->data) {
+    p->rchild=delete(p->rchild, key);
+  }
+  else {
+    if(height(p->lchild)>height(p->rchild)) {
+      q=inorderPredecessor(p->lchild);
+      p->data=q->data;
+      p->lchild=delete(p->lchild, q->data);
+    }
+    else {
+      q=inorderSuccessor(p->rchild);
+      p->data=q->data;
+      p->rchild=delete(p->rchild, q->data);
+    }
+  }
+  return p;
 }
 
 // Recursive search
@@ -83,12 +137,12 @@ node * IsearchNode(int key) {
 
 int main() {
   node *temp;
-  root=recursiveInsert(root, 30);
-  recursiveInsert(root, 15);
-  recursiveInsert(root, 50);
+  root=recursiveInsert(root,50);
   recursiveInsert(root, 10);
-  recursiveInsert(root, 20);
   recursiveInsert(root, 40);
+  recursiveInsert(root, 20);
+  recursiveInsert(root, 30);
+  delete(root, 50);
   inorder(root);
   printf("\n");
   temp=IsearchNode(15);
