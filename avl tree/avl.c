@@ -31,7 +31,7 @@ node * llRotation(node *t) {
   node *tlr=tl->rchild;
 
   tl->rchild=t;
-  t->rchild=tlr;
+  t->lchild=tlr;
   tl->height=nodeHeight(tl);
   t->height=nodeHeight(t);
 
@@ -42,7 +42,21 @@ node * llRotation(node *t) {
 }
 
 node *lrRotation(node *t) {
-  return NULL;
+  node *tl=t->lchild;
+  node *tlr=tl->rchild;
+
+  tl->rchild=tlr->lchild;
+  t->lchild=tlr->rchild;
+  tlr->rchild=t;
+  tlr->lchild=tl;
+  tl->height=nodeHeight(tl);
+  t->height=nodeHeight(t);
+  tlr->height=nodeHeight(tlr);
+  if(root==t) {
+    root=tlr;
+  } 
+  return tlr;
+
 }
 
 node *rrRotation(node *t) {
@@ -80,8 +94,8 @@ node * recursiveInsert(node *t, int key) {
 }
 
 int main() {
-  root=recursiveInsert(root, 10);
-  recursiveInsert(root, 5);
-  recursiveInsert(root, 2);
+  root=recursiveInsert(root, 50);
+  recursiveInsert(root, 10);
+  recursiveInsert(root, 20);
   return 0;
 }
