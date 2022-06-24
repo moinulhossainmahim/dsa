@@ -10,13 +10,43 @@ void insert(int h[], int n) {
   h[i]=temp;
 }
 
+int delete(int h[], int n) {
+  int i,j,val;
+  val=h[1];
+  h[1]=h[n];
+  h[n]=val;
+  i=1;
+  j=2*i;
+  while(j<n-1){
+    if(h[j+1]>h[j]) {
+      j=j+1;
+    }
+    if(h[i]<h[j]) {
+      h[i]=h[i]+h[j];
+      h[j]=h[i]-h[j];
+      h[i]=h[i]-h[j];
+      i=j;
+      j=2*j;
+    }
+    else {
+      break;
+    }
+  }
+  return val;
+}
+
 int main() {
-  int h[]={0, 2, 5, 8, 9, 4, 10, 7};
-  insert(h, 2);
-  insert(h, 3);
-  insert(h, 4);
-  insert(h, 5);
-  insert(h, 6);
-  insert(h, 7);
+  int h[]={0, 10, 20, 30, 25, 5, 40, 35};
+  int i;
+  for(i=2; i<=7; i++) {
+    insert(h, i);
+  }
+  for(i=7; i>1; i--) {
+    delete(h, i);
+  }
+  for(i=1; i<=7; i++) {
+    printf("%d ", h[i]);
+  }
+  printf("\n");
   return 0;
 }
