@@ -50,6 +50,15 @@ int Length(struct Node *h) {
     return len;
 }
 
+struct Node * findLastNode(struct Node *p) {
+    struct Node *temp;
+    temp=Head;
+    while(temp->next!=Head) {
+        temp=temp->next;
+    }
+    return temp;
+}
+
 void insertNode(struct Node *h, int x, int index){
     struct Node *t;
     int i;
@@ -116,7 +125,8 @@ int deleteNode(struct Node *p, int index) {
 int main() {
     int A[] = {2, 3, 4, 6, 7};
     create(A, 5);
-    deleteNode(Head,5);
-    recursiveDisplay(Head);
+    display(Head);
+    struct Node *node = findLastNode(Head);
+    printf("\n%d\n", node->data);
     return 0;
 }
