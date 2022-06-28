@@ -179,9 +179,7 @@ void deleteMid(int index) {
 
 int main() {
   createList(5);
-  display();
-  deleteMid(2);
-  display();
+  rightToLeftDisplay();
   printf("Length of the list: %d\n", countNode());
   return 0;
 }
