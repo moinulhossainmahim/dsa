@@ -33,6 +33,7 @@ void createLinkedList(int n) {
         temp=temp->next;
       }
       temp->next=newNode;
+      newNode->prev=temp;
     }
   }
 }
