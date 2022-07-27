@@ -50,7 +50,7 @@ void dijkstra(int s, int n) {
     int node=pq.top().S;
     ll currD=pq.top().F;
     pq.pop();
-
+        
     if(dis[node] < currD) continue;
 
     for(auto p : adj[node]) {
@@ -74,8 +74,8 @@ int main() {
     adj[u].PB({v, w});
     //adj[v].PB({u, w});
   }
-  dijkstra(1, n);
-  for(int i=1; i<=n; i++) cout << dis[i] << " ";
+  dijkstra(0, n);
+  for(int i=0; i<=n; i++) cout << dis[i] << " ";
   cout << endl;
 }
 
