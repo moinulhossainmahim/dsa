@@ -50,7 +50,7 @@ void dijkstra(int s, int n) {
     int node=pq.top().S;
     ll currD=pq.top().F;
     pq.pop();
-        
+
     if(dis[node] < currD) continue;
 
     for(auto p : adj[node]) {
