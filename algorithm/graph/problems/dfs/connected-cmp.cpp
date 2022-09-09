@@ -10,8 +10,7 @@ using namespace std;
 typedef long long ll;
 typedef vector<int> vi;
 typedef vector<ll> vl;
-typedef vector<vi> vvi;
-typedef vector<vl> vvl;
+
 typedef pair<int, int> pii;
 #define debug(n) cout << (n) << endl;
 

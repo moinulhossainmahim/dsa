@@ -17,37 +17,36 @@ typedef pair<int, int> pii;
 
 const int mx = 1e3 + 123;
 char adj[mx][mx];
-bool vis[mx][mx];
-int r, col, cnt;
-vector<char> d;
-bool isFind;
+int dist[mx][mx];
+int r, col;
+vector<pair<int, int>> d;
+
+vector<pair<int, int>> moves = {{+1, 0}, {-1, 0}, {0, +1}, {0, -1}};
 
 int dx[] = {+1, -1, 0, 0};
 int dy[] = {0, 0, +1, -1};
 
-void dfs(int x, int y) {
-  vis[x][y] = 1;
-  cnt++;
+void bfs(int x, int y) {
+  dist[x][y] = 0;
+  queue<pair<int, int>> q;
+  q.push({x, y});
 
-  for (int i = 0; i < 4; i++) {
-    int x1 = x + dx[i];
-    int y1 = y + dy[i];
-    if (x1 >= 1 && x1 <= r && y1 >= 1 && y1 <= col && vis[x1][y1] == 0 &&
-            (adj[x1][y1] == '.') ||
-        (adj[x1][y1] == 'B')) {
-      if (i == 0)
-        d.push_back('U');
-      else if (i == 1)
-        d.push_back('D');
-      else if (i == 2)
-        d.push_back('R');
-      else if (i == 3)
-        d.push_back('L');
-      if (adj[x1][y1] == 'B') {
-        isFind = 1;
-        return;
+  while (!q.empty()) {
+    int xs = q.front().first;
+    int ys = q.front().second;
+    q.pop();
+
+    for (int i = 0; i < 4; i++) {
+      int x1 = xs + dx[i];
+      int y1 = ys + dy[i];
+      if (x1 >= 1 && x1 <= r && y1 >= 1 && y1 <= col && dist[x1][y1] == -1 &&
+          adj[x1][y1] != '#') {
+        dist[x1][y1] = dist[xs][ys] + 1;
+        q.push({x1, y1});
+        if (adj[x1][y1] == 'B') {
+          return;
+        }
       }
-      dfs(x1, y1);
     }
   }
 }
@@ -56,6 +55,7 @@ int main() {
   ios::sync_with_stdio(false);
   cin.tie(0);
   int x, y;
+  int tx, ty;
   cin >> r >> col;
   for (int i = 1; i <= r; i++) {
     for (int j = 1; j <= col; j++) {
@@ -63,18 +63,19 @@ int main() {
       if (adj[i][j] == 'A') {
         x = i;
         y = j;
+      } else if (adj[i][j] == 'B') {
+        tx = i;
+        ty = j;
       }
     }
   }
-  dfs(x, y);
-  if (isFind) {
-    cout << "YES" << endl;
-    cout << cnt << endl;
-    reverse(d.begin(), d.end());
-    for (auto u : d)
-      cout << u;
-    cout << endl;
-  } else {
-    cout << "NO" << endl;
-  }
+  memset(dist, -1, sizeof(dist));
+  bfs(x, y);
+  if (dist[tx][ty] == -1)
+    return cout << "NO\n", 0;
+
+  cout << "YES\n" << dist[tx][ty] << endl;
+  for (auto h : d)
+    cout << h;
+  cout << endl;
 }
