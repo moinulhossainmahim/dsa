@@ -28,9 +28,7 @@ void mergeSort(int a[], int n) {
 			merge(a, l, mid, h);
 		}
 	}
-
 	if(i / 2 < n) merge(a, 0, i/2-1, n-1);
-
 }
 
 int main() {
@@ -39,4 +37,3 @@ int main() {
 	for(auto u : nums) cout << u << " ";
 	cout << endl;
 }
-
